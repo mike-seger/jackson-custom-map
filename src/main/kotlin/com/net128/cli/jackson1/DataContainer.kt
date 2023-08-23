@@ -45,6 +45,6 @@ data class KeyPart2 (
 )
 
 data class KeyPart3 (
-        val value: Int
+    val value: Int
 )
 
