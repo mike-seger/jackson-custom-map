@@ -13,7 +13,7 @@ data class DataContainer(var dataMap: Map<DataKey, Int>) {
         private val module = SimpleModule()
             .addKeySerializer(DataKey::class.java, DataKeySerializer())
             .addKeyDeserializer(DataKey::class.java, DataKeyDeserializer())
-        private val mapper: ObjectMapper = ObjectMapper().registerKotlinModule()//.registerModule(module)
+        private val mapper: ObjectMapper = ObjectMapper().registerKotlinModule().registerModule(module)
     }
     class DataKeySerializer: JsonSerializer<DataKey>() {
         override fun serialize(value: DataKey?, gen: JsonGenerator?, serializers: SerializerProvider?) {

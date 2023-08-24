@@ -19,7 +19,7 @@ class Jackson1Application : CommandLineRunner {
     ))
 
     override fun run(vararg args: String) {
-        if(args[0] == "1") {
+        if(args.size==1 && args[0] == "1") {
             data class DataCell (val dataKey: DataKey, val value: Int)
             val dataCells = dataContainer.dataMap.entries.map { e -> DataCell(e.key, e.value) }
             val jsonString = mapper.writeValueAsString(dataCells)
