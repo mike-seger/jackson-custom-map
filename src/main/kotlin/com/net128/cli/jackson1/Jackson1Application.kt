@@ -20,13 +20,13 @@ class Jackson1Application : CommandLineRunner {
 
     override fun run(vararg args: String) {
         if(args.size==1 && args[0] == "1") {
-            data class DataCell (val dataKey: DataKey, val value: Int)
+            data class DataCell (val key: DataKey, val value: Int)
             val dataCells = dataContainer.dataMap.entries.map { e -> DataCell(e.key, e.value) }
             val jsonString = mapper.writeValueAsString(dataCells)
             println(jsonString)
 
             val dataCells2: List<DataCell> = mapper.readValue(jsonString)
-            val map2 = dataCells2.map { it.dataKey to it.value }.toMap()
+            val map2 = dataCells2.map { it.key to it.value }.toMap()
             if (dataContainer.dataMap != map2) println("dataContainer.dataMap read value mismatch")
         } else {
             val jsonString = dataContainer.toJson()
