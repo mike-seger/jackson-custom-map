@@ -6,14 +6,14 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
-data class DataContainer(var entries: Map<DataKey, Int>) {
-    fun toJson(): String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(entries)
+data class DataContainer(var dataMap: Map<DataKey, Int>) {
+    fun toJson(): String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dataMap)
     fun fromJson(json: String) : Map<DataKey, Int> = mapper.readValue(json)
     companion object {
         private val module = SimpleModule()
             .addKeySerializer(DataKey::class.java, DataKeySerializer())
             .addKeyDeserializer(DataKey::class.java, DataKeyDeserializer())
-        val mapper: ObjectMapper = ObjectMapper().registerKotlinModule().registerModule(module)
+        private val mapper: ObjectMapper = ObjectMapper().registerKotlinModule()//.registerModule(module)
     }
     class DataKeySerializer: JsonSerializer<DataKey>() {
         override fun serialize(value: DataKey?, gen: JsonGenerator?, serializers: SerializerProvider?) {
